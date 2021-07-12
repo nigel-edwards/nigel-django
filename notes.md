@@ -7,7 +7,7 @@ Install django pip install --user django==3.0.3 best installed as admin
 
 Create new project
 1. navigate to project directory in terminal
-2.  `django-admin startproject "projectname"`
+2.  `django-admin startproject <projectname>`
 
 Creates a folder called projectname which contains
 
@@ -23,4 +23,25 @@ Creates a folder called projectname which contains
 - Navigate to project directory, check in correct place should be same level as manage.py
 - type `python manage.py runserver`
 - Should see the server running at it's portnumber : "Starting development server at http://127.0.0.1:8000/"
-- Should be able to browse to that site and wee a welcome message.
+- Should be able to browse to that site and wee a welcome message.  Also note generation of db.sqlite3 file.
+
+## Django App Creation
+
+- Component within a Django project.
+- A folder within the project containing python files.
+- Each app fulfils a single purpose.
+
+1. Navigate to project folder
+2. Type `python manage.py startapp <appname>`
+    Creates a set of files in folder "appname":
+    - migrations/__init__.py
+    - __init__.py
+    - admin.py
+    - apps.py
+    - models.py
+    - tests.py
+    - views.py
+3. Add app to project
+  1. Edit projectname/settings.py
+  2. Add line to INSTALLED_APPS section `'appname',`
+
