@@ -1,9 +1,9 @@
 # These are my Django Notes
 
-These are notes from the LinkIn Learning course "[Learning Django]()" by Caleb Smith.
+These are notes from the LinkIn Learning course "[Learning Django](https://www.linkedin.com/learning/learning-django-2)" by Caleb Smith.
 
 [Install Python](https://www.python.org/downloads/) 3.9.6
-Install django pip install --user django==3.0.3 best installed as admin
+Install Django pip install --user django==3.0.3 best installed as admin
 
 Create new project
 1. navigate to project directory in terminal
@@ -87,21 +87,32 @@ Full list of field types and options can be found in the [Django documentation](
     class Pet(models.Model):
         # Note choices here is a list of tuples which are data value and display value
         SEX_CHOICES = [('M', 'Male'), ('F', 'Female')]
-        name = models.CharField(maxlength=100)
-        submitter = models.CharField(maxlength=100)
-        species = models.CharField(maxlength=30)
-        breed = models.CharField(maxlength=30, blank=True)
+        name = models.CharField(max_length=100)
+        submitter = models.CharField(max_length=100)
+        species = models.CharField(max_length=30)
+        breed = models.CharField(max_length=30, blank=True)
         description = models.TextField()
-        sex = models.CharField(maxlength=1, choices=SEX_CHOICES, blank=True)
+        sex = models.CharField(max_length=1, choices=SEX_CHOICES, blank=True)
         age = models.IntegerField()
-        submission_date = models.TimeDateField()
+        submission_date = models.DateTimeField()
 ```
 
 3. And any other tables or classes we need for this app - here we have vaccines required by the adopted pets:
 
 ``` python
     class Vaccine(models.Model):
-        name = models.CharField(maxlength=50)
+        name = models.CharField(max_length=50)
 ```
 
-4. Now define the relationship between the classes - we do this by adding an additional field in our classes.  Here we can add a M:N relationship between Pet and Vaccine `vaccinations = models.ManyToManyField('Vaccine', blank = True)` defined in Pet - note reference to vancine class in the argument list.
+4. Now define the relationship between the classes - we do this by adding an additional field in our classes.  Here we can add a M:N relationship between Pet and Vaccine `vaccinations = models.ManyToManyField('Vaccine', blank = True)` defined in Pet - note reference to vaccine class in the argument list.
+
+### Migrations
+
+Scripts used to modify database when things have changed - Adding a Model or adding, removing or changing a field.
+
+- `python manage.py makemigrations` - look at models and generate scripts to handle changes. Creates numbered files, starting from 1, in the appname/migrations directory.
+- `python manage.py showmigrations` - Lists all migrations index [ ] = not run; [X] = has been run
+- `python manage.py migrate` - Runs all the migrations that have not been run. Or we can run to a specific migration number on a specific app. 
+
+download [SQLLite Browser](https://sqlitebrowser.org/). Use to browse db.sqlite3 database file:
+![Initial DB](./InitialDB.PNG)
